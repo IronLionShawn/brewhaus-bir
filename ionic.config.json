@@ -1,0 +1,7 @@
+{
+  "name": "brewhaus-bir",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
