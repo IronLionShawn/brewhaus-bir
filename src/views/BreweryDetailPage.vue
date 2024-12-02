@@ -16,7 +16,9 @@
             
                 <template v-if="dataLoaded">
                     <ion-card>
-                        <img :src="cardBg" />
+                        <div class="img-container">
+                           <img :src="cardBg" /> 
+                        </div>
                         <ion-card-header>
                             <ion-card-subtitle>
                                 <span class="capitalize">{{ brewery?.brewery_type }}</span> Brewery
@@ -80,7 +82,8 @@ import {
     IonTitle, 
     IonToolbar, 
     IonSpinner,
-    onIonViewWillEnter
+    onIonViewWillEnter,
+    onIonViewDidLeave
 } from '@ionic/vue';
 import { computed, ComputedRef, ref, Ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -127,6 +130,11 @@ onIonViewWillEnter(async () => {
     }
 });
 
+onIonViewDidLeave(() => {
+    breweryAPI.reset();
+});
+
+
 </script>
 
 <style scoped lang="scss">
@@ -138,11 +146,20 @@ onIonViewWillEnter(async () => {
         }
 
         ion-card {
-            width: 85%;
-            img {
-                width: 1080px;
-                height: auto;
-                overflow: hidden
+            width: 45%;
+            height: 80%;
+            .img-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                overflow-y: hidden;
+                height: 40rem;
+
+                img {
+                    max-width: inherit;
+                    object-fit: cover;
+                }
             }
 
             ion-card-title {

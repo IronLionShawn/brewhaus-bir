@@ -40,5 +40,6 @@ const app = createApp(App)
   .use(router);
 
 router.isReady().then(() => {
+  document.title = import.meta.env.VITE_APP_TITLE;
   app.mount('#app');
 });

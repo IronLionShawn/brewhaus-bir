@@ -13,7 +13,7 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-searchbar placeholder="Brewery" :debounce="1500" @ionInput="search($event)"></ion-searchbar>
+                <ion-searchbar placeholder="Brewery" :debounce="750" @ionInput="search($event)"></ion-searchbar>
               </ion-col>
             </ion-row>
     
