@@ -29,14 +29,14 @@
 
                         <ion-card-content>
                             <ion-grid class="no-padding">
-                                <ion-row>
-                                    <ion-col v-if="brewery?.address_1"> {{ brewery.address_1 }}</ion-col>
+                                <ion-row v-if="brewery?.address_1">
+                                    <ion-col> {{ brewery.address_1 }}</ion-col>
                                 </ion-row>
-                                <ion-row>
-                                    <ion-col v-if="brewery?.address_2"> {{ brewery.address_2 }}</ion-col>
+                                <ion-row  v-if="brewery?.address_2">
+                                    <ion-col> {{ brewery.address_2 }}</ion-col>
                                 </ion-row>
-                                <ion-row>
-                                    <ion-col v-if="brewery?.address_3"> {{ brewery.address_3 }}</ion-col>
+                                <ion-row v-if="brewery?.address_3">
+                                    <ion-col> {{ brewery.address_3 }}</ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <ion-col>
@@ -47,8 +47,8 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-card-content>
-                        <ion-buttons class="ion-padding">
-                            <ion-button v-if="brewery?.website_url" @click="goTo(brewery.website_url)"  fill="outline">
+                        <ion-buttons v-if="brewery?.website_url" class="ion-padding">
+                            <ion-button @click="goTo(brewery.website_url)" fill="outline">
                                 Visit Website
                             </ion-button>
                         </ion-buttons>
@@ -85,11 +85,17 @@ import {
 import { computed, ComputedRef, ref, Ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const route$ = useRoute();
-const { id } = route$.params;
+// hooks
+const route = useRoute();
+
+// non reactive vars
+const { id } = route.params;
+
+// reactive vars
 const dataLoaded: Ref<boolean> = ref(false);
 const brewery: Ref<BreweryModel | undefined> = ref();
 
+// computed vars
 const cardBg: ComputedRef<string> = computed(() => {
     switch (brewery.value?.brewery_type) {
         case BreweryType.REGIONAL:
@@ -106,11 +112,11 @@ const cardBg: ComputedRef<string> = computed(() => {
 });
 
 const goTo = (link: string) => {
-    window.open(link,'_blanks');
+    window.open(link,'_blank');
 }
 
+//lifecycle hook
 onIonViewWillEnter(async () => {
-    console.log('ion view will enter');
     breweryAPI.reset();
     try {
         const response = await breweryAPI.read(id as string);
